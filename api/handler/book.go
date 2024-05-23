@@ -23,13 +23,13 @@ func (h *handler) CreateBook(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if !IsDateValid(newBook.PublicationDate) {
-		http.Error(w, "Date of birth is wrong!", http.StatusBadRequest)
+		http.Error(w, "Pulication date is wrong!", http.StatusBadRequest)
 		return
 	}
 
 	parsedDate, err := time.Parse("2006-01-02", newBook.PublicationDate)
 	if err != nil {
-		http.Error(w, "Date of birth is wrong!", http.StatusBadRequest)
+		http.Error(w, "Pulication date is wrong!", http.StatusBadRequest)
 		return
 	}
 
