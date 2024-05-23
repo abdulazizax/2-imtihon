@@ -137,3 +137,20 @@ func (h *handler) DeleteAuthorByID(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode("Author is deleted!!!  ID: " + id)
 }
+
+func (h *handler) GetAuthorByName(w http.ResponseWriter, r *http.Request) {
+	name := GetIDFromURL(r.URL.Path)
+	if name == "" {
+		http.Error(w, "Invalid ID", http.StatusBadRequest)
+		return
+	}
+
+	author, err := h.storage.Author().GetAuthorByName(r.Context(), name)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(author)
+}

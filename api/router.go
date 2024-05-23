@@ -26,6 +26,9 @@ func New(option Option) *http.ServeMux {
 	router.HandleFunc("GET /author/{id}", handler.GetAuthorById)
 	router.HandleFunc("GET /book/{id}", handler.GetBookById)
 
+	router.HandleFunc("GET /author/{name}", handler.GetAuthorByName)
+	router.HandleFunc("GET /book/{title}", handler.GetBookByTitle)
+
 	router.HandleFunc("PUT /author/{id}", handler.UpdateAuthorByID)
 	router.HandleFunc("PUT /book/{id}", handler.UpdateBookById)
 

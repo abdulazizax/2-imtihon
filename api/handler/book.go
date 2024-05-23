@@ -141,3 +141,20 @@ func (h *handler) DeleteBookByID(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode("Book is deleted!!! ID: " + id)
 }
+
+func (h *handler) GetBookByTitle(w http.ResponseWriter, r *http.Request) {
+	title := GetIDFromURL(r.URL.Path)
+	if title == "" {
+		http.Error(w, "Invalid ID", http.StatusBadRequest)
+		return
+	}
+
+	book, err := h.storage.Book().GetBookById(r.Context(), title)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(book)
+}
