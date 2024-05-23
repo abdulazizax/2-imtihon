@@ -145,11 +145,11 @@ func (h *handler) DeleteBookByID(w http.ResponseWriter, r *http.Request) {
 func (h *handler) GetBookByTitle(w http.ResponseWriter, r *http.Request) {
 	title := GetIDFromURL(r.URL.Path)
 	if title == "" {
-		http.Error(w, "Invalid ID", http.StatusBadRequest)
+		http.Error(w, "Invalid Title", http.StatusBadRequest)
 		return
 	}
 
-	book, err := h.storage.Book().GetBookById(r.Context(), title)
+	book, err := h.storage.Book().GetBookByTitle(r.Context(), title)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
