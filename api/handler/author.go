@@ -141,7 +141,7 @@ func (h *handler) DeleteAuthorByID(w http.ResponseWriter, r *http.Request) {
 func (h *handler) GetAuthorByName(w http.ResponseWriter, r *http.Request) {
 	name := GetIDFromURL(r.URL.Path)
 	if name == "" {
-		http.Error(w, "Invalid ID", http.StatusBadRequest)
+		http.Error(w, "Invalid Name", http.StatusBadRequest)
 		return
 	}
 
